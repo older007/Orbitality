@@ -61,7 +61,7 @@ namespace BattleSystem
 
             var tr = transform;
             
-            float step =  enemyWaveData.Speed * Time.deltaTime; // calculate distance to move
+            var step =  enemyWaveData.Speed * Time.deltaTime;
             tr.position = Vector3.MoveTowards(tr.position, targetTransform.position, step);
 
             return 0;

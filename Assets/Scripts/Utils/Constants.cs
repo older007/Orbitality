@@ -22,5 +22,8 @@
         public const string SpawnPointPath = "EnemyPrefabs/BlackHole";
         public const string EnemyPrefabPath = "EnemyPrefabs/Enemy";
         public const string WaveDataPath = "EnemyWave/WaveData";
+
+        public const string Pause = "Pause";
+        public const string Resume = "Resume";
     }
 }

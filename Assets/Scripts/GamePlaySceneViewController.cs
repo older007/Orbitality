@@ -14,9 +14,10 @@ public class GamePlaySceneViewController : MonoBehaviour
 {
     [SerializeField] private TMP_Text planetName;
     [SerializeField] private TMP_Text planetHealthPoint;
-    [SerializeField] private TMP_Text timer;
+    [SerializeField] private TMP_Text pauseButtonText;
     [SerializeField] private Button saveButton;
     [SerializeField] private Button playButton;
+    [SerializeField] private Button pauseButton;
     [SerializeField] private PlayerController playerView;
     [SerializeField] private GameModeManager gameModeManager;
     private OrbitalManager orbitalManager => ServiceLocator.Get<OrbitalManager>();
@@ -29,17 +30,22 @@ public class GamePlaySceneViewController : MonoBehaviour
 
     private void Start()
     {
+        pauseButton.gameObject.SetActive(false);
+        
         playButton.onClick.AddListener(StartGame);
     }
 
     private void StartGame()
     {
+        pauseButton.gameObject.SetActive(true);
         playButton.gameObject.SetActive(false);
         startTime = DateTime.Now;
         
+        pauseButton.onClick.AddListener(ChangePauseState);
         saveButton.onClick.AddListener(SaveEndExit);
         orbitalManager.PlayerSubscribe(OnPlayerDataChanged);
-        
+
+        pauseButtonText.text = Constants.Pause;
         planetName.text = "Third planet from Sun";
         UpdateUi(modelData);
         
@@ -47,6 +53,16 @@ public class GamePlaySceneViewController : MonoBehaviour
 
         playerView.Init();
         gameModeManager.StartGame();
+    }
+
+    private void ChangePauseState()
+    {
+        updateProvider.IsStoped = !updateProvider.IsStoped;
+       
+        //for bullet physics
+        Time.timeScale = updateProvider.IsStoped ? 0 : 1;
+        
+        pauseButtonText.text = updateProvider.IsStoped ? Constants.Resume : Constants.Pause;
     }
 
     private void StartTimer()

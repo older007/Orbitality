@@ -38,8 +38,6 @@ namespace GameMode
             enemyManager = gm.AddComponent<EnemyManager>();
 
             var savedData = PlayerPrefs.GetInt(Constants.PveSave, 1);
-
-            Debug.LogWarning(savedData);
             
             enemyManager.Init(savedData);
         }

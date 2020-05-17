@@ -9,6 +9,7 @@ public class GameLoader
     [RuntimeInitializeOnLoadMethod]
     private static void LoadGame()
     {
+        Time.timeScale = 1;
         ServiceLocator.Clear();
         SceneManager.LoadScene(SceneName);
         SceneManager.LoadScene(InstanceScene, LoadSceneMode.Additive);

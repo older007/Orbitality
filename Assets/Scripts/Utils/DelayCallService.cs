@@ -6,14 +6,18 @@ namespace Utils
 {
     public class DelayCallService : MonoBehaviour, IDisposable
     {
+        private UpdateProvider updateProvider => ServiceLocator.Get<UpdateProvider>();
+        
         private readonly List<TickCall> ticks = new List<TickCall>();
 
         private void Awake()
         {
             ServiceLocator.Add(this);
+            
+            updateProvider.UpdateEvent += OnUpdate;
         }
 
-        private void Update()
+        private void OnUpdate()
         {
             for (var index = 0; index < ticks.Count; index++)
             {

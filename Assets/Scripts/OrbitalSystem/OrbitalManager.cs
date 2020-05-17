@@ -165,7 +165,6 @@ namespace OrbitalSystem
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             });
             
-            Debug.LogWarning(json);
             PlayerPrefs.SetInt(Constants.IsSaved, 1);
             PlayerPrefs.SetString(Constants.GameData, json);
         }
